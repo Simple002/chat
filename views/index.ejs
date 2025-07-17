@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Реал-тайм Чат</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    ul { list-style: none; padding: 0; }
+    li { padding: 5px 10px; border-bottom: 1px solid #ccc; }
+    #form { display: flex; margin-top: 10px; }
+    #input { flex: 1; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h1>💬 Чат</h1>
+  <ul id="messages"></ul>
+  <form id="form" action="">
+    <input id="input" autocomplete="off" placeholder="Введите сообщение..." />
+    <button>Отправить</button>
+  </form>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/script.js"></script>
+</body>
+</html>
