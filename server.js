@@ -10,19 +10,21 @@ const { Server } = require('socket.io');
 const connectDB = require("./connect")
 const io = new Server(http); 
 const User = require('./Models/user_model')
+const Auth = require("./middlewares/Auth")
 
 connectDB()
 app.use(express.json())
 app.set("view engine","ejs")
 app.use(express.urlencoded({extends:true}))
+app.use(express.static("public"));
 app.use(cookieParser());
 
 app.get('/',(req,res)=>{
   res.render("index")
 })
 
-app.get('/home/chat',(req,res)=>{
-  res.render("home")
+app.get('/home/chat', Auth, (req, res) => {
+  res.render("home", { user: req.user }) // req.user.name доступен в шаблоне
 })
 
 app.get('/logout',(req,res)=>{
@@ -96,8 +98,30 @@ app.post('/login/user', async (req,res)=>{
 })
 
 app.get('/login/user',(req,res)=>{
-  res.render('login')
+  res.render("login")
 })
+
+
+
+
+io.on('connection', (socket) => {
+  console.log('🔌 Пользователь подключился');
+
+  socket.on('chat message', (data) => {
+    io.emit('chat message', {
+      user: data.user,
+      message: data.message
+    });
+  });
+
+  socket.on('disconnect', () => {
+    console.log('🔌 Пользователь отключился');
+  });
+});
+
+
+
+
 
 http.listen(8080 ,()=> {
   console.log("Server start work on port 8080...")

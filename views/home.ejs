@@ -2,24 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Чат</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <button id="log_out">Log out</button>
+    <h2>Добро пожаловать, <%= user.name %>!</h2>
+    <ul id="messages"></ul>
+    <form id="form">
+        <input id="input" autocomplete="off" placeholder="Напиши сообщение..." />
+        <button>Отправить</button>
+    </form>
+
+    <button id="log_out">Выйти</button>
+
+    <script src="/socket.io/socket.io.js"></script>
     <script>
-        document.getElementById('log_out').addEventListener('click',()=>{
-            fetch("/logout",{
-                method:"GET",
-                credentials:"include"
+        const socket = io();
+        const username = "<%= user.name %>";
+
+        const messages = document.getElementById("messages");
+        const input = document.getElementById("input");
+        const form = document.getElementById("form");
+
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+            if(input.value){
+                socket.emit('chat message', {
+                    user: username,
+                    message: input.value
+                });
+                input.value = "";
+            }
+        });
+
+        socket.on('chat message', function (data) {
+            const item = document.createElement('li');
+            item.textContent = `${data.user}: ${data.message}`;
+            messages.appendChild(item);
+        });
+
+        document.getElementById('log_out').addEventListener('click', ()=> {
+            fetch("/logout", {
+                method: "GET",
+                credentials: "include"
             })
             .then(res => res.json())
             .then(data => {
                 if(data.status){
-                    window.location.href = "/login/user"
+                    window.location.href = "/login/user";
                 }
-            })
-        })
+            });
+        });
     </script>
 </body>
 </html>

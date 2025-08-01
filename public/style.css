@@ -1,0 +1,98 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f7;
+    color: #333;
+}
+
+/* Заголовок приветствия */
+h2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Сообщения */
+#messages {
+    list-style: none;
+    padding: 0;
+    max-width: 700px;
+    margin: 20px auto;
+    overflow-y: auto;
+    height: 60vh;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+#messages li {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    transition: background 0.3s;
+}
+
+#messages li:last-child {
+    border-bottom: none;
+}
+
+#messages li:hover {
+    background-color: #f9f9f9;
+}
+
+/* Форма ввода */
+#form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    max-width: 700px;
+    gap: 10px;
+}
+
+#input {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border 0.2s;
+}
+
+#input:focus {
+    border-color: #66aaff;
+}
+
+/* Кнопка отправки */
+#form button {
+    padding: 12px 20px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#form button:hover {
+    background-color: #45a049;
+}
+
+/* Кнопка выхода */
+#log_out {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 16px;
+    background-color: #ff4b5c;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#log_out:hover {
+    background-color: #e04351;
+}
